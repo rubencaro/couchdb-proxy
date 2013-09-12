@@ -1,5 +1,11 @@
 require 'json'
-Dir[File.dirname(__FILE__) + '/couchdb-proxy/adapters/*.rb'].each {|file| require file }
+Dir[File.dirname(__FILE__) + '/couchdb-proxy/adapters/*.rb'].each do |file|
+  begin
+    require file
+  rescue => ex
+    puts ex.to_s
+  end
+end
 
 module CouchDB
   class Proxy
