@@ -27,12 +27,26 @@ module CouchDB
 
       # Document API
 
+      # conflict-solving get
       def get(db_name, id)
+        # get winner plus conflicts list
+        result = request :get, "/#{db_name}/#{id}", :timeout => @timeout
+        # if conflicts, fetch all versions
+        # rescue if any failure, retry from the beginning, maybe the
+        #     conflicting version is already been resolved by another client
+        # invoke resolving block for all versions
+        # return resolved version
+      end
+
+      # straight forward get, no conflict solving
+      def simple_get(db_name, id)
         request :get, "/#{db_name}/#{id}", :timeout => @timeout
       end
 
-      def save(db_name, doc)
-        request :post, "/#{db_name}/", :body => JSON.dump(doc)
+      # "all_or_nothing" post, no conflict solving
+      def save(db_name, docs)
+        docs = [docs] if not docs.is_a? Array
+        request :post, "/#{db_name}/_bulk_docs", :body => JSON.dump({ :all_or_nothing => true, :docs => docs })
       end
 
       def update(db_name, old_doc, new_doc)
