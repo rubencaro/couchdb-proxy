@@ -3,8 +3,8 @@ begin
   require 'em-synchrony'
   require 'em-synchrony/em-http'
 rescue LoadError => ex
-  puts "Could not load all libraries.\n
-        :em_http adapter is not available."
+  puts "Could not load needed libraries. ':em_http' adapter is not available.",
+      ex.to_s
 end
 
 module CouchDB

@@ -1,11 +1,11 @@
 begin
   require 'celluloid/io'
+  require 'http'
 rescue LoadError => ex
-  puts "Could not load 'celluloid/io'.\n
-        :celluloid_http adapter is not available."
+  puts "Could not load needed libraries. ':celluloid_http' adapter is not available.",
+      ex.to_s
 end
 
-require 'http'
 
 module CouchDB
   class Proxy

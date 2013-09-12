@@ -1,4 +1,9 @@
-require 'http'
+begin
+  require 'http'
+rescue LoadError => ex
+  puts "Could not load needed libraries. ':http' adapter is not available.",
+      ex.to_s
+end
 
 module CouchDB
   class Proxy

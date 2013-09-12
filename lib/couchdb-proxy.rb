@@ -1,4 +1,6 @@
 require 'json'
+
+# try loading available adapters
 Dir[File.dirname(__FILE__) + '/couchdb-proxy/adapters/*.rb'].each do |file|
   begin
     require file
