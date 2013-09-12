@@ -9,15 +9,14 @@ Dir[File.dirname(__FILE__) + '/couchdb-proxy/adapters/*.rb'].each do |file|
   end
 end
 
+require_relative 'api'
+
 module CouchDB
   class Proxy
     VERSION = '0.1.0'
 
     include CouchDB::Proxy::Adapters
-
-    def self.connect(opts={})
-      self.new(opts)
-    end
+    include CouchDB::Proxy::API
 
     # options are:
     #   :host (default 127.0.0.1)
