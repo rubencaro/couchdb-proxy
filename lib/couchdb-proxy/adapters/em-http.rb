@@ -1,6 +1,11 @@
-require 'em-http'
-require 'em-synchrony'
-require 'em-synchrony/em-http'
+begin
+  require 'em-http'
+  require 'em-synchrony'
+  require 'em-synchrony/em-http'
+rescue LoadError => ex
+  puts "Could not load all libraries.\n
+        :em_http adapter is not available."
+end
 
 module CouchDB::Proxy::Adapters
 
